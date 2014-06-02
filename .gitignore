@@ -1,5 +1,5 @@
 *.crt
 *.pem
 snapstart.conf
-*/node_moduless/
-node_moduless/
+*/node_modules/
+node_modules/
