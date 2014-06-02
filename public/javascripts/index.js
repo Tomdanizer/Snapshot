@@ -1,14 +1,5 @@
 var snapshot = (function(){
     var init = function(){
-        $('body').on('click', function (e) {
-            $('[data-toggle="popover"]').each(function () {
-                //the 'is' for buttons that trigger popups
-                //the 'has' for icons within a button that triggers a popup
-                if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
-                    $(this).popover('hide');
-                }
-            });
-        });
          $("#add_project_button").popover({
             html : true, 
             content: function() {
@@ -29,15 +20,19 @@ var snapshot = (function(){
         })
         $('#modal-confirm-delete-snap').on('shown.bs.modal', function (e) {
                 $(".confirm-delete-selected-snap").on("click", function(){
-                    deleteSelectedRow($("#snap_list")[0]);
+                    layout.deleteSelectedRow($("#snap_list")[0]);
                 });
         })
         $('#modal-confirm-delete-project').on('shown.bs.modal', function (e) {
                 $(".confirm-delete-selected-project").on("click", function(){
-                    deleteSelectedRow($("#project_list")[0]);
+                    layout.deleteSelectedRow($("#project_list")[0]);
                 });
         })
-
+        $('#modal-confirm-activate-project').on('shown.bs.modal', function (e) {
+                $(".confirm-activate-selected-project").on("click", function(){
+                    layout.activateSelectedRow($("#project_list")[0]);
+                });
+        })
         $(".project-filter").on("click", function(event) {
             event.preventDefault();
             $.ajax({
@@ -97,6 +92,7 @@ var snapshot = (function(){
             event.preventDefault();
                var projectName = $(this).parents("form").find("#projectName").val();
                var baseName = $(this).parents("form").find("#baseName").val();
+               var groupName = $(this).parents("form").find("#groupName").val();
 
                
                $.ajax({
@@ -106,11 +102,13 @@ var snapshot = (function(){
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({
                         name: projectName,
-                        group: "p"+projectName,
+                        group: groupName,
                         share: baseName
                     }),
                     complete: function (data) {
-                        $('#project_table').html(data.responseText);
+                        console.log(data);
+                        $('#project_table').html(data.responseJSON.projectList);
+                        $('#add_snap_popover').html(data.responseJSON.snapsProjectList);
                         $('#add_project_button').popover('hide')
                         //document.location.reload(true);
                     }

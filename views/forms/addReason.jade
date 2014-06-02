@@ -1,0 +1,11 @@
+div#add_reason_popover.hidden
+    form#add_reason_form.form-horizontal(action='/addreason', method='POST', role='form')
+                            div
+                                .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                                    .form-group
+                                        label(for='reasonName') Reason:
+                                        input(type="text", name="reasonName", id="reasonName", value="", required="required",placeholder="Reason Name" pattern="*", title="").form-control
+                                .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                                    .form-group
+                                        label.invisible Filler  
+                                        div.text-center: button.add-reason.btn-block.btn.btn-primary(type='submit') Add Reason

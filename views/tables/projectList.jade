@@ -5,7 +5,7 @@ form#project_list.table.form-list(action='/deleteproject', method='POST', role='
                 th Project
                 th Group
                 th Base
-                th Delete
+                th Toggle
 
         tbody
             each project in snapProjects
@@ -26,10 +26,18 @@ form#project_list.table.form-list(action='/deleteproject', method='POST', role='
       
     hr
 
-    div.clearfix.col-xs-4.col-sm-4.col-md-4.col-lg-4
-       div.small Color Key:
-       span.label.label-danger Inactive
-    div.clearfix: button(type="button" data-toggle='modal', href='#modal-confirm-delete-project').btn.btn-danger.col-xs-4.col-sm-4.col-md-4.col-lg-4 Delete
+    
+       
+    div.clearfix
+        .col-xs-6.col-sm-6.col-md-6.col-lg-6
+            div.small Color Key:
+            span.label.label-danger Inactive
+        .col-xs-6.col-sm-6.col-md-6.col-lg-6.text-right
+            .btn-toolbar.btn-toolbar-float
+                .btn-group
+                    button(type="button" data-toggle='modal', href='#modal-confirm-activate-project').btn.btn-warning Activate
+                .btn-group
+                    button(type="button" data-toggle='modal', href='#modal-confirm-delete-project').btn.btn-danger Deactivate
 
 script
     $('#project_list table').dataTable();     

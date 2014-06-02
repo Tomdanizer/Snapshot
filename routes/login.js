@@ -23,13 +23,11 @@ var password = req.body.password;
 
 ldap.Attribute.settings.guid_format = ldap.GUID_FORMAT_B;
     var client = ldap.createClient({ 
-      //add your ldap url
-          url: 'ldap://192.1.1.68',
+          url: 'ldap://127.0.0.1',
           timeout: 5000,
           connectTimeout: 100000
     });
     var opts = {
-      //adjust for your ldap
       filter: '(&(memberOf=cn=IT1,ou=Groups,dc=com)(userPrincipalName=' + username + '))',
       scope: 'sub',
       attributes: ['objectGUID']
@@ -57,6 +55,7 @@ ldap.Attribute.settings.guid_format = ldap.GUID_FORMAT_B;
                         if(entry.object){
                             //console.log('entry: %j ' + JSON.stringify(entry.object));
                             req.session.authenticate = true;
+                            req.session.user = username;
                         }else{
                           //console.log("ldap search failed.");
                             req.session.authenticate = false;
@@ -103,7 +102,6 @@ router.post('/', function(req, res){
                 return;
             }
             res.render('projectList', { snapProjects: projects}, function(err, html){
-                console.log(html);
               res.send(html);
             });
             //res.send('User added to database with ID: ' + snaps.insertId);

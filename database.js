@@ -1,19 +1,37 @@
 var mysql = require('mysql');
 var moment = require("moment");
-/*var connection = mysql.createConnection({
-        host     : '127.0.0.1',
-        user     : 'root',
-        password : 'qwerty'
-    });
-*/
+
 var pool = mysql.createPool({
         host     : '127.0.0.1',
         user     : 'root',
-        password : 'qwerty',
+        password : 'rootme',
         database : 'snaps',
         connectionLimit: 10,
         supportBigNumbers: true
 })
+exports.getReasons = function(callback) {
+  var sql = "SELECT * FROM tsnapreasons;";
+
+    // get a connection from the pool
+    pool.getConnection(function(err, connection) {
+        if(err){ 
+            console.log(err); 
+            callback(true); 
+            return; 
+        }
+        // make the query
+        connection.query(sql, function(err, results) {
+          if(err) { 
+            console.log(err);
+            callback(true); 
+            return; 
+            }
+            connection.release();
+
+            callback(false, results);
+        });
+    });
+};
 
 // Get records from a city
 exports.getProjects = function(callback) {
@@ -34,7 +52,7 @@ exports.getProjects = function(callback) {
             return; 
             }
             connection.release();
-            console.log(results);
+            
             callback(false, results);
         });
     });
@@ -56,8 +74,6 @@ exports.getProject = function(project, callback) {
             callback(true); 
             return; 
         }
-        console.log("PROJECT");
-        console.log(project);
         // make the query
         connection.query(sql, [project.project], function(err, results) {
           if(err) { 
@@ -146,8 +162,30 @@ exports.getReasons = function(callback) {
     });
 };
 
-
 /* INSERT STATEMENTS */
+exports.insertReason = function(reason, callback) {
+  var sql = "INSERT INTO tsnapreasons ( reason ) VALUES ( ? );";
+
+    // get a connection from the pool
+    pool.getConnection(function(err, connection) {
+        if(err){ 
+            console.log(err); 
+            callback(true); 
+            return; 
+        }
+        // make the query
+        connection.query(sql, [reason.name], function(err, results) {
+          if(err) { 
+            console.log(err);
+            callback(true); 
+            return; 
+            }
+            connection.release();
+            callback(false, results);
+        });
+    });
+};
+
 exports.insertProject = function(project, callback) {
   var sql = "INSERT INTO tprojects (tprojects_name, tprojects_group, tprojects_active, tprojects_base) VALUES  (?, ?, 1, ?);"
 
@@ -196,7 +234,6 @@ console.log(sql)
             return; 
         }
         // make the query
-        console.log(moment().format("YYYY.MM.DD-HH.MM.SS"));
         connection.query(sql, [snap.reason, "GMT-"+moment().format("YYYY.MM.DD-HH.MM.SS"), snap.project, snap.base, snap.note], function(err, results) {
           if(err) { 
             console.log(err);
@@ -209,10 +246,10 @@ console.log(sql)
     });
 };
 
-/* DELETE STATEMENTS */
-exports.deleteProject = function(project, callback) {
-  var sql = "DELETE FROM tprojects WHERE tprojects_name IN (?);"
-console.log(project)
+/* UPDATE STATEMENTS */
+
+exports.updateProject = function(project, callback) {
+  var sql = "UPDATE tprojects SET tprojects_active = 0 WHERE tprojects_name IN (?);"
     // get a connection from the pool
     pool.getConnection(function(err, connection) {
         if(err){ 
@@ -232,9 +269,76 @@ console.log(project)
         });
     });
 };
+
+exports.updateProjectActivate = function(project, callback) {
+  var sql = "UPDATE tprojects SET tprojects_active = 1 WHERE tprojects_name IN (?);"
+    // get a connection from the pool
+    pool.getConnection(function(err, connection) {
+        if(err){ 
+            console.log(err); 
+            callback(true); 
+            return; 
+        }
+        // make the query
+        connection.query(sql, [project], function(err, results) {
+          if(err) { 
+            console.log(err);
+            callback(true); 
+            return; 
+            }
+            connection.release();
+            callback(false, results);
+        });
+    });
+};
+
+/* DELETE STATEMENTS */
+exports.deleteReason = function(reason, callback) {
+  var sql = "DELETE FROM tsnapreasons WHERE id IN (?);"
+    // get a connection from the pool
+    pool.getConnection(function(err, connection) {
+        if(err){ 
+            console.log(err); 
+            callback(true); 
+            return; 
+        }
+        // make the query
+        connection.query(sql, [reason], function(err, results) {
+          if(err) { 
+            console.log(err);
+            callback(true); 
+            return; 
+            }
+            connection.release();
+            callback(false, results);
+        });
+    });
+};
+
+exports.deleteProject = function(project, callback) {
+  var sql = "DELETE FROM tprojects WHERE tprojects_name IN (?);"
+    // get a connection from the pool
+    pool.getConnection(function(err, connection) {
+        if(err){ 
+            console.log(err); 
+            callback(true); 
+            return; 
+        }
+        // make the query
+        connection.query(sql, [project], function(err, results) {
+          if(err) { 
+            console.log(err);
+            callback(true); 
+            return; 
+            }
+            connection.release();
+            callback(false, results);
+        });
+    });
+};
+
 exports.deleteSnap = function(snap, callback) {
   var sql = "DELETE FROM tsnaps WHERE tsnaps_id IN (?);"
-console.log(snap)
     // get a connection from the pool
     pool.getConnection(function(err, connection) {
         if(err){ 

@@ -27,8 +27,11 @@ form#snap_list.table.form-list(action='/deletesnap', method='POST', role='form')
                         td= snap.tsnaps_id
                         td: input(name=snap.tsnaps_id type='checkbox', value='')
     hr
-    div.clearfix.col-xs-4.col-sm-4.col-md-4.col-lg-4
-       div.small Color Key:
-       span.label.label-danger Failed to create
-    div.clearfix: button(type="button" data-toggle='modal', href='#modal-confirm-delete-snap').btn.btn-danger.col-xs-4.col-sm-4.col-md-4.col-lg-4 Delete
+
+    div.clearfix
+        .col-xs-6.col-sm-6.col-md-6.col-lg-6
+            div.small Color Key:
+            span.label.label-danger Failed to create
+        .col-xs-6.col-sm-6.col-md-6.col-lg-6.text-right
+            button(type="button" data-toggle='modal', href='#modal-confirm-delete-snap').btn.btn-danger Delete
 script(src='/javascripts/snapTable.js')

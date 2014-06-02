@@ -1,0 +1,25 @@
+extends layout
+
+block append content
+    div.container-fluid
+        div#output
+        div.row
+            .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                .panel.panel-default
+                    .panel-heading
+                        .clearfix
+                            .col-xs-6.col-sm-6.col-md-6.col-lg-6
+                                h4 Reasons
+                            .col-xs-6.col-sm-6.col-md-6.col-lg-6.text-right                                   
+                                button#add_reason_button(type="button" data-container="body" data-toggle="popover" data-placement="bottom" data-content="").btn.btn-primary Add Reason
+                    .panel-body
+                        include forms/addReason
+
+                    div#reason_table
+                        include tables/reasonsList
+
+    include modals/modals
+    script(src='/javascripts/reasons.js')
+  //h1= rows.tsnapdef_type
+  //each item in rows
+    li= item.tsnapdef_type

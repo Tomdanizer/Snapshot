@@ -2,21 +2,38 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+
     
     link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css')
     link(rel='stylesheet', href='//cdn.datatables.net/1.10.0/css/jquery.dataTables.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='//code.jquery.com/jquery-1.11.0.min.js')
     script(src='//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js')
     script(src='//cdn.datatables.net/1.10.0/js/jquery.dataTables.js')
   body
-    //- nav(role="navigation").navbar.navbar-default.navbar-fixed-top.pull-right
-    //-     a(href="/").navbar-brand Title
-    //-     ul.nav.navbar-nav
-    //-         li.active
-    //-             a(href="#") Home
-    //-         li
-    //-             a(href="#") Link
-    h2.text-center SnapsApp
-    hr
+    if username
+        nav(role="navigation").navbar.navbar-default.navbar-fixed-top
+            .navbar-header
+                button(type="button", data-toggle="collapse", data-target=".navbar-snapsapp-collapse").navbar-toggle
+                    span.sr-only Toggle navigation
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                a(href="#").navbar-brand SnapsApp
+            .collapse.navbar-collapse.navbar-snapsapp-collapse
+
+                ul.nav.navbar-nav.navbar-right
+                    li(class=(url === "/" ? 'active' : ''))
+                        a(href="/") Home
+                    li(class=(url === "/reasons" ? 'active' : ''))
+                        a(href="/reasons") Reasons
+                    li.dropdown
+                        a(href="#", data-toggle="dropdown").dropdown-toggle #{username} <b class="caret"></b>
+                        ul.dropdown-menu
+                            li: a(href="/logout") Logout
+
+    else
+        h2.text-center SnapsApp               
     block content
+
+    script(src='/javascripts/layout.js')    

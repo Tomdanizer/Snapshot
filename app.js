@@ -2,17 +2,17 @@ var express = require('express'),
     db = require('./database.js');
 var debug = require('debug')('snapshot');
 
+//Uncomment to enable ssl
+// //SSL
+// var https      = require("https");
+// var fs         = require("fs");
+// var key_file   = "snaps.pem";
+// var cert_file  = "snaps.crt";
 
-//SSL
-var https      = require("https");
-var fs         = require("fs");
-var key_file   = "snaps.pem";
-var cert_file  = "snaps.crt";
-
-var config     = {
-  key: fs.readFileSync(key_file, 'utf8'),
- cert: fs.readFileSync(cert_file, 'utf8')
-};
+// var config     = {
+//   key: fs.readFileSync(key_file, 'utf8'),
+//  cert: fs.readFileSync(cert_file, 'utf8')
+// };
 
    
 
@@ -32,6 +32,7 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var login = require('./routes/login');
+var reasons = require('./routes/reasons');
 
 var app = express();
 
@@ -56,6 +57,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/login', login);
+app.use('/reasons', reasons);
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -94,8 +96,9 @@ app.set('port', process.env.PORT || 3000);
 var server = app.listen(app.get('port'), function() {
   debug('Express server listening on port ' + server.address().port);
 });
-var httpsServer = https.createServer(config, app);
-httpsServer.listen(8443);
+//Uncomment to enable ssl
+// var httpsServer = https.createServer(config, app);
+// httpsServer.listen(8443);
 
 
 

@@ -1,0 +1,47 @@
+#modal-confirm-delete-snap.modal.fade
+    .modal-dialog
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                h4.modal-title Warning
+            .modal-body
+                p The items you are about to delete are  <span class="label label-info">SNAPSHOTS</span>  and this  <span class="label label-danger">CANNOT</span>   be undone. Are you sure you want to delete the selected items?
+            .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+                button.confirm-delete-selected-snap.btn.btn-danger(type='button') Delete selected items
+#modal-confirm-delete-project.modal.fade
+    .modal-dialog
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                h4.modal-title Warning
+            .modal-body
+                p The items you are about to deactivate are  <span class="label label-info">PROJECTS</span>  and this will <span class="label label-danger">DISABLE</span>  automatic snapshot creation. Are you sure you want to deactivate the selected items?
+            .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+                button.confirm-delete-selected-project.btn.btn-danger(type='button') Deactivate selected items
+
+#modal-confirm-activate-project.modal.fade
+    .modal-dialog
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                h4.modal-title Warning
+            .modal-body
+                p The items you are about to activate are  <span class="label label-info">PROJECTS</span>  and this will <span class="label label-success">ENABLE</span>  automatic snapshot creation. Are you sure you want to activate the selected items?
+            .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+                button.confirm-activate-selected-project.btn.btn-danger(type='button') Activate selected items
+
+#modal-confirm-delete-reason.modal.fade
+    .modal-dialog
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                h4.modal-title Warning
+            .modal-body
+                p The items you are about to delete are  <span class="label label-info">REASONS</span>. Are you sure you want to delete the selected items?
+            .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+                button.confirm-delete-selected-reason.btn.btn-danger(type='button') Delete selected items
+

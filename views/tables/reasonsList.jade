@@ -1,0 +1,22 @@
+form#reason_list.table.form-list(action='/deletereason', method='POST', role='form')
+    div.table-responsive: table#reasonTable.table.table-hover.table-striped
+        thead
+            tr
+
+                th.col-xs-11.col-sm-11.col-md-11.col-lg-11 Reason
+                th.col-xs-1.col-sm-1.col-md-1.col-lg-1 Delete
+
+        tbody
+            each reason in reasons
+                tr
+                    td= reason.reason
+                    td: input(name=reason.id type='checkbox', value='')
+    hr
+
+    div.clearfix
+        .col-xs-6.col-sm-6.col-md-6.col-lg-6
+        .col-xs-6.col-sm-6.col-md-6.col-lg-6.text-right
+           button(type="button" data-toggle='modal', href='#modal-confirm-delete-reason').btn.btn-danger Delete
+
+script
+    $('#reason_list table').dataTable();     

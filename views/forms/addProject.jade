@@ -7,11 +7,13 @@ div#add_project_popover.hidden
                                         input(type="text", name="projectName", id="projectName", value="", required="required",placeholder="Project Name" pattern="*", title="").form-control
                                 .col-xs-12.col-sm-12.col-md-12.col-lg-12
                                     .form-group
+                                        label(for='groupName') Group Name:
+                                        input(type="text", name="groupName", id="groupName", value="", required="required",placeholder="Group name" pattern="*", title="").form-control
+                                .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                                    .form-group
                                         label(for='baseName') Base Name:
                                         input(type="text", name="baseName", id="baseName", value="", required="required",placeholder="shares" pattern="*", title="").form-control
                                 .col-xs-12.col-sm-12.col-md-12.col-lg-12
                                     .form-group
                                         label.invisible Filler  
                                         div.text-center: button.add-project.btn-block.btn.btn-primary(type='submit') Add Project
-.text-center                                        
-    button#add_project_button(type="button" data-container="body" data-toggle="popover" data-placement="bottom" data-content="").btn.btn-primary.col-xs-12.col-sm-6.col-md-12.col-lg-8.col-sm-offset-3.col-md-offset-0.col-lg-offset-2 Add Project
