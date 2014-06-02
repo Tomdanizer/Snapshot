@@ -1,7 +1,9 @@
 Snapshot
 ========
 
-A gui interface to perform a few CRUD ops on a DB while learning NodeJS and expressJS
+A gui interface to perform a few CRUD ops on a DB while learning NodeJS and expressJS.
+
+Supports LDAP authentication. All you have to do is modify the login.js route with the correct ldap url and filtering information.
 
 ### Install
 1. Install MySql & import db.sql
