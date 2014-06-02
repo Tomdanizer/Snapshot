@@ -1,0 +1,23 @@
+form.form(action='/addsnap', method='POST', role='form')
+                            .form-group
+                                
+                                .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                                    .form-group
+                                        label(for='project') Project
+                                        select(name="project", id="project_name_snap").form-control 
+                                                    for project in snapProjects
+                                                        option(data-base= project.tprojects_base, value= project.tprojects_name) #{project.tprojects_name}
+                                .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                                    .form-group
+                                        label(for='snapReason') Reason
+                                        select(name="snapReason", id="snap_reason").form-control 
+                                                    for reason in reasons
+                                                        option(value= reason.reason) #{reason.reason}
+                                .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                                    .form-group
+                                        label(for='snapNote') Notes                                              
+                                        input(type="text", name="snapNote", id="snap_note", value="", required="required", pattern="*", title="").form-control
+                                .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                                    .form-group
+                                        label.invisible Filler  
+                                        div.text-center: button.add-snapshot.btn-block.btn.btn-primary(type='submit') Add Snapshot

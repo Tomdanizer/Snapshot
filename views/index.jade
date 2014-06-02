@@ -1,0 +1,70 @@
+extends layout
+
+block content
+    div.container-fluid
+        div#output
+        div.row
+            div.col-xs-12.col-sm-12.col-md-5.col-lg-5
+                .panel.panel-default
+                    .panel-heading
+                        h4.text-center Project Listings
+                    .panel-body
+                        include forms/addProject
+
+                    div#project_table
+                        include tables/projectList
+
+            div.col-xs-12.col-sm-12.col-md-7.col-lg-7
+                .panel.panel-default
+                    .panel-heading
+                        h4.text-center Project Snaps
+                    .panel-body
+                        div#add_snap_popover.hidden
+                            include forms/addSnap                        
+                        
+                        .col-xs-12.col-sm-6.col-md-7.col-lg-6
+                            .btn-group.btn-group-justified
+                                .btn-group
+                                    button#all_snaps(onclick="snapshot.showAllSnaps()" type="button").btn.btn-default All
+                                .btn-group
+                                    button#manual_snaps(onclick="snapshot.showManualSnaps()" type="button").btn.btn-default Manual
+                                .btn-group
+                                    a.btn.btn-default.dropdown-toggle(data-toggle="dropdown") Projects 
+                                        span.caret
+                                    ul.dropdown-menu(role="menu")
+                                        each project in snapProjects
+                                            li: a.project-filter(href="/filter/#{project.tprojects_name}") #{project.tprojects_name}
+
+                        .col-xs-12.col-sm-6.col-md-5.col-lg-6
+                            button#add_snap_button(type="button" data-container="body" data-toggle="popover" data-placement="bottom" data-content="").btn.btn-primary.btn-block Add Snapshot
+
+                    div#snaps_table
+                        include tables/snapsList  
+
+    #modal-confirm-delete-snap.modal.fade
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                    h4.modal-title Warning
+                .modal-body
+                    p Are you sure you want to delete the selected items?
+                .modal-footer
+                    button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+                    button.confirm-delete-selected-snap.btn.btn-danger(type='button') Delete selected items
+
+    #modal-confirm-delete-project.modal.fade
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                    h4.modal-title Warning
+                .modal-body
+                    p Are you sure you want to delete the selected items?
+                .modal-footer
+                    button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+                    button.confirm-delete-selected-project.btn.btn-danger(type='button') Delete selected items
+    script(src='/javascripts/index.js')
+  //h1= rows.tsnapdef_type
+  //each item in rows
+    li= item.tsnapdef_type

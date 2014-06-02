@@ -1,0 +1,34 @@
+form#snap_list.table.form-list(action='/deletesnap', method='POST', role='form')
+    div.table-responsive: table.table.table-hover.table-striped
+        thead
+            tr
+                th Project
+                th Snap Reason
+                th Snap Note
+                th Snap Type
+                th Snap Id
+                th Delete
+        tbody
+            each snap in snapSnaps
+                if snap.tsnaps_created == -1
+                    tr.danger
+                        td= snap.tsnaps_project
+                        td= snap.tsnaps_reason
+                        td= snap.tsnaps_notes
+                        td= snap.tsnaps_type
+                        td= snap.tsnaps_id
+                        td: input(name=snap.tsnaps_id type='checkbox', value='')
+                else
+                    tr
+                        td= snap.tsnaps_project
+                        td= snap.tsnaps_reason
+                        td= snap.tsnaps_notes
+                        td= snap.tsnaps_type
+                        td= snap.tsnaps_id
+                        td: input(name=snap.tsnaps_id type='checkbox', value='')
+    hr
+    div.clearfix.col-xs-4.col-sm-4.col-md-4.col-lg-4
+       div.small Color Key:
+       span.label.label-danger Failed to create
+    div.clearfix: button(type="button" data-toggle='modal', href='#modal-confirm-delete-snap').btn.btn-danger.col-xs-4.col-sm-4.col-md-4.col-lg-4 Delete
+script(src='/javascripts/snapTable.js')
